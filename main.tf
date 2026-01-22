@@ -94,6 +94,8 @@ resource "aws_route53_record" "jenkins" {
   ttl     = 1
   records = [aws_instance.jenkins.public_ip]
   allow_overwrite = true
+
+  depends_on = [aws_instance.jenkins]
 }
 
 resource "aws_route53_record" "sonar" {
@@ -113,4 +115,6 @@ resource "aws_route53_record" "jenkins-agent" {
   ttl     = 1
   records = [aws_instance.jenkins_agent.private_ip]
   allow_overwrite = true
+
+  depends_on = [aws_instance.jenkins-agent]
 }
