@@ -43,7 +43,7 @@ resource "aws_instance" "sonar" {
   ami           = local.sonar_ami_id
   instance_type = "t3.large"
   vpc_security_group_ids = [aws_security_group.main.id]
-  subnet_id = "subnet-0e183c806a6e13582" #replace your Subnet in default VPC
+  subnet_id = "subnet-040cf66252ccb23da" #replace your Subnet in default VPC
   key_name = "aws-prav"
   # need more for terraform
   root_block_device {
@@ -61,6 +61,7 @@ resource "aws_instance" "sonar" {
 resource "aws_security_group" "main" {
   name        =  "${var.project}-${var.environment}-jenkins"
   description = "Created to attatch Jenkins and its agents"
+  vpc_id = data.aws_vpc.robodev.id
 
   egress {
     from_port        = 0

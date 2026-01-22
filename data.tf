@@ -1,3 +1,15 @@
+data "aws_vpc" "robodev" {
+  filter {
+    name = "Name"
+    values = ["roboshop-dev"]
+  }
+}
+
+data "aws_subnet_ids" "subnet-dev"{
+    vpc_id = data.aws_vpc.robodev.id
+}
+
+
 data "aws_ami" "devcloud" {
 
     most_recent = true
