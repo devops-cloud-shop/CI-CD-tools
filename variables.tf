@@ -1,0 +1,21 @@
+variable "project" {
+  default = "roboshop"
+}
+
+variable "environment" {
+  default = "dev"
+}
+
+variable "zone_name" {
+  type        = string
+  default     = "prav4cloud.online"
+}
+
+variable "zone_id" {
+  type      = string
+  default   = "Z07156123N66DZ6JZ182I"
+}
+
+variable "sonar" {
+  default = false
+}
