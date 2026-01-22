@@ -116,5 +116,5 @@ resource "aws_route53_record" "jenkins-agent" {
   records = [aws_instance.jenkins_agent.private_ip]
   allow_overwrite = true
 
-  depends_on = [aws_instance.jenkins-agent]
+  depends_on = [aws_instance.jenkins_agent]
 }
