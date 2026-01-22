@@ -1,13 +1,13 @@
 data "aws_vpc" "robodev" {
   filter {
-    name = "Name"
+    name = "name"
     values = ["roboshop-dev"]
   }
 }
 
 data "aws_subnet" "sub-dev" {
   filter {
-    name   = "Name"
+    name   = "name"
     values = ["roboshop-dev-sub-01"]  # Replace with the subnet's tag value
   }
 }
