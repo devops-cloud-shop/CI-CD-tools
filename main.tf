@@ -18,6 +18,11 @@ resource "aws_instance" "jenkins" {
   )
 }
 
+resource "eip" "jenkins" {
+    instance = aws_instance.jenkins.id
+    vpc = true  
+}
+
 resource "aws_instance" "jenkins_agent" {
   ami           = local.ami_id
   instance_type = "t3.small"
@@ -92,7 +97,7 @@ resource "aws_route53_record" "jenkins" {
   name    = "jenkins.${var.zone_name}"
   type    = "A"
   ttl     = 1
-  records = [aws_instance.jenkins.public_ip]
+  records = [aws_eip.jenkins.public_ip]
   allow_overwrite = true
 
   depends_on = [aws_instance.jenkins]
