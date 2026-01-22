@@ -5,10 +5,12 @@ data "aws_vpc" "robodev" {
   }
 }
 
-data "aws_subnet_ids" "subnet-dev"{
-    vpc_id = data.aws_vpc.robodev.id
+data "aws_subnet" "sub-dev" {
+  filter {
+    name   = "Name"
+    values = ["roboshop-dev-sub-01"]  # Replace with the subnet's tag value
+  }
 }
-
 
 data "aws_ami" "devcloud" {
 
