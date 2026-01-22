@@ -18,9 +18,9 @@ resource "aws_instance" "jenkins" {
   )
 }
 
-resource "eip" "jenkins" {
-    instance = aws_instance.jenkins.id
-    vpc = true  
+resource "aws_eip" "jenkins" {
+  instance = aws_instance.jenkins.id
+  vpc      = true
 }
 
 resource "aws_instance" "jenkins_agent" {
