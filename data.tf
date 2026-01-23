@@ -35,11 +35,11 @@ data "aws_ami" "devcloud" {
 
 data "aws_ami" "sonarqube" {
   most_recent = true
-  owners      = ["679593333241"] # Solve DevOps
+  owners      = ["309956199498"] # Solve DevOps Not working 
 
   filter {
     name   = "name"
-    values = ["SolveDevOps-SonarQube-Server-Ubuntu24.04-*"]
+    values = ["RHEL-10.1.0_HVM-*-x86_64-0-Hourly2-GP3"]
   }
 
   filter {

@@ -43,13 +43,23 @@ resource "aws_instance" "jenkins_agent" {
   )
 }
 
-resource "aws_instance" "sonar" {
-  count = var.sonar ? 1 : 0
-  ami           = local.sonar_ami_id
-  instance_type = "t3.large"
+# resource "aws_instance" "sonar" {
+#   count = var.sonar ? 1 : 0
+#   ami           = local.sonar_ami_id
+#   instance_type = "t3.large"
+#   vpc_security_group_ids = [aws_security_group.main.id]
+#   subnet_id = data.aws_subnet.sub-dev.id #replace your Subnet in default VPC
+#   key_name = "aws-prav"
+
+  resource "aws_instance" "sonar" {
+  ami                    = local.sonar_ami_id
+  instance_type          = "m7i-flex.large"
+  subnet_id              = data.aws_subnet.sub-dev.id
   vpc_security_group_ids = [aws_security_group.main.id]
-  subnet_id = data.aws_subnet.sub-dev.id #replace your Subnet in default VPC
-  key_name = "aws-prav"
+  key_name               = "aws-prav"
+
+  user_data = file("sonar.sh")
+              
   # need more for terraform
   root_block_device {
     volume_size = 20
@@ -66,7 +76,7 @@ resource "aws_instance" "sonar" {
 resource "aws_security_group" "main" {
   name        =  "${var.project}-${var.environment}-jenkins"
   description = "Created to attatch Jenkins and its agents"
-  vpc_id = data.aws_vpc.robodev.id
+  vpc_id = local.vpc_id
 
   egress {
     from_port        = 0
@@ -91,6 +101,41 @@ resource "aws_security_group" "main" {
     }
   )
 }
+
+#SG for sonar
+resource "aws_security_group" "sonar" {
+  name   = "sonar-sg"
+  vpc_id = local.vpc_id.id
+
+  ingress {
+    from_port   = 9000
+    to_port     = 9000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+   tags = merge(
+    local.common_tags,
+    {
+        Name = "${var.project}-${var.environment}-sonar-sg"
+    }
+  )
+}
+
 
 resource "aws_route53_record" "jenkins" {
   zone_id = var.zone_id
