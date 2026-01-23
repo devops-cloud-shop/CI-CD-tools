@@ -7,7 +7,7 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "roboshop-dev-pravcloud"
+    bucket = "jenkins-daws-86s"
     key    = "roboshop-dev-jenkins"
     region = "us-east-1"
     use_lockfile = true
