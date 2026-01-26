@@ -7,8 +7,8 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "jenkins-daws-86s"
-    key    = "roboshop-dev-jenkins"
+    bucket = "roboshop-dev-pravcloud"
+    key    = "roboshop-dev-sonar"
     region = "us-east-1"
     use_lockfile = true
     encrypt = true
