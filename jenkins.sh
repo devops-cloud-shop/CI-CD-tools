@@ -13,19 +13,21 @@ xfs_growfs /
 xfs_growfs /var
 xfs_growfs /home
 
-# Create Jenkins repo safely
+# Create Jenkins repo safely- redhat stable is deprecated
 cat <<EOF > /etc/yum.repos.d/jenkins.repo
 [jenkins]
 name=Jenkins-stable
-baseurl=https://pkg.jenkins.io/redhat-stable
+baseurl=https://pkg.jenkins.io/rpm-stable
 enabled=1
 gpgcheck=1
-repo_gpgcheck=0
-gpgkey=https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+repo_gpgcheck=1
+gpgkey=https://pkg.jenkins.io/rpm-stable/repodata/repomd.xml.key
 EOF
 
+
 # Import key
-rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+rpm --import https://pkg.jenkins.io/rpm-stable/repodata/repomd.xml.key
+
 
 # Install Java (required)
 dnf install -y java-17-openjdk fontconfig
