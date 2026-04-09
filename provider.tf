@@ -2,12 +2,12 @@ terraform {
   required_providers {
     aws = {
       source = "hashicorp/aws"
-      version = "6.16.0"
+      version = "6.23.0"
     }
   }
 
   backend "s3" {
-    bucket = "roboshop-dev-pravcloud"
+    bucket = "daws86s-roboshop-infra-dev "
     key    = "roboshop-dev-jenkins"
     region = "us-east-1"
     use_lockfile = true
