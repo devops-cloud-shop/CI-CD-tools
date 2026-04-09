@@ -34,22 +34,22 @@ data "aws_ami" "daws-main" {
 }
 
 
-data "aws_ami" "sonarqube" {
-  most_recent = true
-  owners      = ["679593333241"] # Solve DevOps
+# data "aws_ami" "sonarqube" {
+#   most_recent = true
+#   owners      = ["679593333241"] # Solve DevOps
 
-  filter {
-    name   = "name"
-    values = ["SolveDevOps-SonarQube-Server-Ubuntu24.04-*"]
-  }
+#   filter {
+#     name   = "name"
+#     values = ["SolveDevOps-SonarQube-Server-Ubuntu24.04-*"]
+#   }
 
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
+#   filter {
+#     name   = "virtualization-type"
+#     values = ["hvm"]
+#   }
 
-  filter {
-    name   = "architecture"
-    values = ["x86_64"]
-  }
-}
+#   filter {
+#     name   = "architecture"
+#     values = ["x86_64"]
+#   }
+# }
