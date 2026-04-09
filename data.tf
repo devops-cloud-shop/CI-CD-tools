@@ -1,14 +1,16 @@
 data "aws_vpc" "robodev" {
   filter {
     name = "tag:Name"
-    values = ["roboshop-dev"]
+    # values = ["roboshop-dev"]
+    values = ["default-dev"] #used this to create jenkins master and agent in def vpc with tf
   }
 }
 
 data "aws_subnet" "sub-dev" {
   filter {
     name   = "tag:Name"
-    values = ["roboshop-dev-sub-01"]  # Replace with the subnet's tag value
+    # values = ["roboshop-dev-sub-01"]  # Replace with the subnet's tag value
+    values = ["default-dev-sub-01"] #used this to create jenkins master and agent in def vpc with tf
   }
 }
 
